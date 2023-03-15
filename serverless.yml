@@ -1,0 +1,22 @@
+service: browserbear-scheduled-screenshot
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  environment:
+    SCREENSHOT_HANDLER_URL: !Sub 'https://${HttpApi}.execute-api.${aws:region}.amazonaws.com'
+
+functions:
+  cronHandler:
+    handler: index.run
+    timeout: 30 # in seconds, the default value is 6 seconds, maximum allowed is 30
+    events:
+      - schedule: cron(0 4 * * ? *) # Invoke Lambda function at 04:00 (UTC) every day.
+  screenshotDoneHandler:
+    handler: index.onScreenshotDone
+    events:
+      - httpApi:
+          method: POST
+          path: /screenshot-done
+
