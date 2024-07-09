@@ -1,15 +1,19 @@
-const API_KEY = 'bb_ak_7194f60ed28444c230a726b6907ec11ffc1b009e';
-const TASK_UID = 'DLmKjrGB9NXwO4lAQ1';
+const API_KEY = 'your_api_key';
+const TASK_UID = 'your_task_id';
 const TAKE_SCREENSHOT_STEP_ID = {
-  DESKTOP: 'LgMD9Nvy9PGbAOo2x8',
-  TABLET: 'm9E5gnJzaRnbPvDrwd',
-  MOBILE: 'Xqdr1oWz7RwB3DEYG9',
+  DESKTOP: 'step_2_id',
+  TABLET: 'step_4_id',
+  MOBILE: 'step_6_id',
 };
-
 module.exports.run = async (event, context) => {
   const screenshotUrls = await triggerScreenshot();
 
   console.log(screenshotUrls);
+  // {
+  //   desktop: 'https://media.browserbear.com/screenshots/50BZWqkKDyPnAPN8Kx/LgMD9Nvy9PGbAOo2x8/ea17a4b9d0b82afb46733c0aa12b0dce0e1f5080.jpg',
+  //   tablet: 'https://media.browserbear.com/screenshots/50BZWqkKDyPnAPN8Kx/m9E5gnJzaRnbPvDrwd/fdff18c6b6c5ef839ac96a7175235ce1ddd186b2.jpg',
+  //   mobile: 'https://media.browserbear.com/screenshots/50BZWqkKDyPnAPN8Kx/Xqdr1oWz7RwB3DEYG9/e63adddaef821fbc4dea4af87c40a7d5b569e411.jpg'
+  // }
 
   // do other things with the screenshot URLs, eg. uploading to a server, use it for other tasks, etc.
 
@@ -28,6 +32,11 @@ module.exports.onScreenshotDone = async (event, context) => {
   };
 
   console.log(screenshotUrls);
+  // {
+  //   desktop: 'https://media.browserbear.com/screenshots/50BZWqkKDyPnAPN8Kx/LgMD9Nvy9PGbAOo2x8/ea17a4b9d0b82afb46733c0aa12b0dce0e1f5080.jpg',
+  //   tablet: 'https://media.browserbear.com/screenshots/50BZWqkKDyPnAPN8Kx/m9E5gnJzaRnbPvDrwd/fdff18c6b6c5ef839ac96a7175235ce1ddd186b2.jpg',
+  //   mobile: 'https://media.browserbear.com/screenshots/50BZWqkKDyPnAPN8Kx/Xqdr1oWz7RwB3DEYG9/e63adddaef821fbc4dea4af87c40a7d5b569e411.jpg'
+  // }
 
   // do other things with the screenshot URLs, eg. uploading to a server, use it for other tasks, etc.
 
@@ -68,7 +77,7 @@ async function takeScreenshot() {
     // webhook_url: `${process.env.SCREENSHOT_HANDLER_URL}/screenshot-done`, // send the result to the webhook URL when the task has finished running, uncomment to use it
   };
 
-  const res = await fetch(`https://api.roborabbit.com/v1/tasks/${TASK_UID}/runs`, {
+  const res = await fetch(`https://api.browserbear.com/v1/tasks/${TASK_UID}/runs`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {
@@ -81,7 +90,7 @@ async function takeScreenshot() {
 }
 
 async function getScreenshotResult(taskId, runId) {
-  const res = await fetch(`https://api.roborabbit.com/v1/tasks/${taskId}/runs/${runId}`, {
+  const res = await fetch(`https://api.browserbear.com/v1/tasks/${taskId}/runs/${runId}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${API_KEY}`,
