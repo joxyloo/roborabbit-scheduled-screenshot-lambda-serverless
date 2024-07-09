@@ -12,7 +12,7 @@ functions:
     handler: index.run
     timeout: 30 # in seconds, the default value is 6 seconds, maximum allowed is 30
     events:
-      - schedule: cron(0 4 * * ? *) # Invoke Lambda function at 04:00 (UTC) every day.
+      # - schedule: cron(0 4 * * ? *) # Invoke Lambda function at 04:00 (UTC) every day.
   screenshotDoneHandler:
     handler: index.onScreenshotDone
     events:
