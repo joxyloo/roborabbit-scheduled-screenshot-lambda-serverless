@@ -1,1 +1,1 @@
-# browserbear-scheduled-screenshot-lambda-serverless
+# roborabbit-scheduled-screenshot-lambda-serverless
